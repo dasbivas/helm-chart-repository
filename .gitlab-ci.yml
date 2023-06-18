@@ -1,0 +1,17 @@
+image: registry.gitlab.com/tdc4/helm-chart-repository:latest
+ 
+stages:
+  - mirror
+
+
+mirror:
+  stage: mirror
+  tags:
+    - internet
+  variables:
+    CHANNEL: 'stable'
+  script:
+  - jq --version
+  - yq --version
+  - sh -x add-and-update-repo.sh
+  - sh -x pull-and-push-charts.sh
